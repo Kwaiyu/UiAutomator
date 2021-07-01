@@ -16,6 +16,7 @@
 
 package com.example.android.testing.uiautomator.BasicSample;
 
+import android.util.Log;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -62,20 +63,23 @@ public class ChangeTextBehaviorTest {
 
         // Start from the home screen
         mDevice.pressHome();
-
+        Log.w("返回主页", "This is a warning");
         // Wait for launcher
         final String launcherPackage = getLauncherPackageName();
         assertThat(launcherPackage, notNullValue());
         mDevice.wait(Until.hasObject(By.pkg(launcherPackage).depth(0)), LAUNCH_TIMEOUT);
-
+        Log.w("等待启动", "This is a warning");
         // Launch the blueprint app
+        Log.w("启动APP", "This is a warning");
         Context context = getApplicationContext();
         final Intent intent = context.getPackageManager()
                 .getLaunchIntentForPackage(BASIC_SAMPLE_PACKAGE);
         intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK);    // Clear out any previous instances
         context.startActivity(intent);
+        Log.w("启动成功", "This is a warning");
 
         // Wait for the app to appear
+        Log.w("等待出现", "This is a warning");
         mDevice.wait(Until.hasObject(By.pkg(BASIC_SAMPLE_PACKAGE).depth(0)), LAUNCH_TIMEOUT);
     }
 
@@ -95,7 +99,7 @@ public class ChangeTextBehaviorTest {
         // Verify the test is displayed in the Ui
         UiObject2 changedText = mDevice
                 .wait(Until.findObject(By.res(BASIC_SAMPLE_PACKAGE, "textToBeChanged")),
-                        500 /* wait 500ms */);
+                        5000 /* wait 5000ms */);
         assertThat(changedText.getText(), is(equalTo(STRING_TO_BE_TYPED)));
     }
 
@@ -110,7 +114,7 @@ public class ChangeTextBehaviorTest {
         // Verify the test is displayed in the Ui
         UiObject2 changedText = mDevice
                 .wait(Until.findObject(By.res(BASIC_SAMPLE_PACKAGE, "show_text_view")),
-                        500 /* wait 500ms */);
+                        5000 /* wait 5000ms */);
         assertThat(changedText.getText(), is(equalTo(STRING_TO_BE_TYPED)));
     }
 
