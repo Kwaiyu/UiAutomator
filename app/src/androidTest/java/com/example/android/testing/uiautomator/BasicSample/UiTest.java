@@ -4,11 +4,9 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.content.pm.ResolveInfo;
+import android.util.Log;
 import androidx.test.ext.junit.runners.AndroidJUnit4;
-import androidx.test.uiautomator.By;
-import androidx.test.uiautomator.UiDevice;
-import androidx.test.uiautomator.UiObject2;
-import androidx.test.uiautomator.Until;
+import androidx.test.uiautomator.*;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -101,8 +99,16 @@ public class UiTest {
 //        assertThat(changedText.getText(), is(equalTo(STRING_TO_BE_TYPED)));
 //    }
     @Test
-    public void demo(){
-
+    public void uiScrollableDemo () throws UiObjectNotFoundException {
+        UiObject2 element = mDevice.findObject(By.text("App"));
+        UiScrollable scroll  = new UiScrollable( new UiSelector()
+                .scrollable(true));
+        element.clickAndWait(Until.newWindow(),2000);
+        scroll.getChildByText(new UiSelector().resourceId("android:id/text1"),
+                "Text-To-Speech", true);
+        UiObject2 element2 = mDevice.findObject(By.text("Text-To-Speech"));
+        element2.clickAndWait(Until.newWindow(), 2000);
+        UiObject2 element3 = mDevice.findObject(By.text("Again"));
+        element3.click();
     }
-
 }
